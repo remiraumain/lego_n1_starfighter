@@ -1,14 +1,14 @@
 import { Html, useProgress } from "@react-three/drei";
 import { useLoadContext } from "./loadContext";
 import Image from "next/image";
-import svg from "../../public/n1-mask.svg";
+// import svg from "../../public/n1-mask.svg";
 import png from "../../public/n1-mask.png";
 
 function Loader() {
   const { setIsLoaded } = useLoadContext();
   const { progress } = useProgress();
   if (progress === 100) {
-    // setIsLoaded(true);
+    setIsLoaded(true);
   }
 
   return (
@@ -23,11 +23,10 @@ function Loader() {
             className={`w-40 absolute top-0  z-20`}
           />
           <div
-            className={` bg-red-500 absolute top-0 bottom-0 z-10`}
+            className={` bg-zinc-400 absolute top-0 bottom-0 z-10`}
             style={{ width: `${progress}%` }}
           />
         </div>
-        {progress}
       </div>
     </Html>
   );
