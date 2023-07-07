@@ -73,4 +73,4 @@ export default function StarfighterModel(props) {
   );
 }
 
-useGLTF.preload("/starfighter-transformed.glb");
+useGLTF.preload("./3d/starfighter-transformed.glb");

@@ -1,11 +1,13 @@
 // import * as THREE from "three";
 import { OrbitControls } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import Base from "./base";
 import Starfighter from "./starfighter";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, act } from "@react-three/fiber";
+import Loader from "./loader";
 
 function Experience() {
+  const [active, setActive] = useState(false);
   return (
     <>
       <Canvas camera={{ position: [-5, 2, 0] }} shadows>
@@ -17,7 +19,8 @@ function Experience() {
         />
         <ambientLight />
         <OrbitControls />
-        <Suspense fallback={null}>
+        {!active && <Loader />}
+        <Suspense fallback={<Loader />}>
           <Starfighter />
           <Base />
         </Suspense>
