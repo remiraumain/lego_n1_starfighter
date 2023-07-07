@@ -1,4 +1,4 @@
-import StarfighterModel from "./3dModel";
+import StarfighterModel from "./model";
 
 function Starfighter() {
   return (
