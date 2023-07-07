@@ -1,13 +1,34 @@
-// import * as THREE from "three";
+import * as THREE from "three";
 import { OrbitControls } from "@react-three/drei";
-import { Suspense, useState } from "react";
+import { ReactNode, Suspense, useRef, useState } from "react";
 import Base from "./base";
 import Starfighter from "./starfighter";
-import { Canvas, act } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import Loader from "./loader";
 
+interface RigProps {
+  children?: ReactNode;
+}
+
+const Rig: React.FC<RigProps> = ({ children }) => {
+  const outer = useRef<THREE.Group>(null!);
+  const inner = useRef<THREE.Group>(null!);
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+    outer.current.position.y = THREE.MathUtils.lerp(
+      outer.current.position.y,
+      0,
+      0.05
+    );
+  });
+  return (
+    <group position={[0, -100, 0]} ref={outer}>
+      <group ref={inner}>{children}</group>
+    </group>
+  );
+};
+
 function Experience() {
-  const [active, setActive] = useState(false);
   return (
     <>
       <Canvas camera={{ position: [-5, 2, 0] }} shadows>
@@ -19,10 +40,11 @@ function Experience() {
         />
         <ambientLight />
         <OrbitControls />
-        {!active && <Loader />}
         <Suspense fallback={<Loader />}>
-          <Starfighter />
-          <Base />
+          <Rig>
+            <Starfighter />
+            <Base />
+          </Rig>
         </Suspense>
       </Canvas>
     </>

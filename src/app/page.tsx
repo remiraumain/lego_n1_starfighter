@@ -15,7 +15,7 @@ export default function Home() {
         <div
           className={`${
             isLoaded ? "w-2/3" : "w-full"
-          } bg-gradient-to-t from-blue-300 to-blue-400 w-full relative`}
+          } bg-gradient-to-t from-blue-300 to-blue-400 relative`}
         >
           <Experience />
           <p className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white p-4 rounded-full">
