@@ -60,7 +60,11 @@ export default function Home() {
               thought out and reproduced with remarkable precision.
             </p>
             <p>Here is a picture of mine:</p>
-            <Image src={picture} alt="Real picture of N-1 Starfighter LEGO" />
+            <Image
+              src={picture}
+              alt="Real picture of N-1 Starfighter LEGO"
+              className="rounded-lg"
+            />
           </div>
         </div>
 
