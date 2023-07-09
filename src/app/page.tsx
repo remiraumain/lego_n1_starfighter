@@ -7,16 +7,18 @@ import logo from "../../public/logo.svg";
 import { FcRotateToLandscape } from "react-icons/fc";
 import { getOrientation, isLandscaped } from "@/components/helpers/device";
 
+import picture from "../../public/picture.jpeg";
+
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [isLandscape, setIsLandscape] = useState<boolean>(false);
+  const [isLandscape, setIsLandscape] = useState<boolean>(true);
   useEffect(() => {
     const handleWindowResize = () => {
       getOrientation() === "landscape"
         ? setIsLandscape(true)
         : setIsLandscape(false);
     };
-
+    handleWindowResize();
     window.addEventListener("resize", handleWindowResize);
 
     return () => {
@@ -28,7 +30,7 @@ export default function Home() {
     <LoadContext.Provider value={{ isLoaded, setIsLoaded }}>
       <main className="w-screen min-h-screen flex overflow-hidden ">
         {!isLandscape && (
-          <div className="absolute flex flex-col gap-4 z-30 bg-white justify-center items-center text-center top-0 w-full h-full">
+          <div className="absolute flex flex-col gap-4 z-10 bg-white justify-center items-center text-center top-0 w-full h-full">
             <FcRotateToLandscape className="text-6xl" />
             To start the experience, please rotate your device to landscape mode
           </div>
@@ -51,7 +53,14 @@ export default function Home() {
             <h1 className="text-4xl font-bold flex flex-col sm:text-center">
               <span className="text-xl">The mandalorian</span>N-1 Starfighter
             </h1>
-            <div className="h-screen bg-red-400 w-full" />
+            <p>
+              The Lego n-1 Starfighter is a true marvel of miniature
+              engineering. At first glance, one is immediately captivated by its
+              sleek lines and elegant design. Every detail has been carefully
+              thought out and reproduced with remarkable precision.
+            </p>
+            <p>Here is a picture of mine:</p>
+            <Image src={picture} alt="Real picture of N-1 Starfighter LEGO" />
           </div>
         </div>
 
