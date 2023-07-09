@@ -40,6 +40,7 @@ function Experience() {
         />
         <ambientLight />
         <OrbitControls />
+
         <Suspense fallback={<Loader />}>
           <Rig>
             <Starfighter />

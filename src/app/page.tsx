@@ -2,20 +2,43 @@
 import Experience from "@/components/experience";
 import { LoadContext } from "@/components/loadContext";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../public/logo.svg";
+import { FcRotateToLandscape } from "react-icons/fc";
+import { getOrientation, isLandscaped } from "@/components/helpers/device";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isLandscape, setIsLandscape] = useState<boolean>(false);
+  useEffect(() => {
+    const handleWindowResize = () => {
+      getOrientation() === "landscape"
+        ? setIsLandscape(true)
+        : setIsLandscape(false);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  });
+  console.log(isLandscape);
   return (
     <LoadContext.Provider value={{ isLoaded, setIsLoaded }}>
-      <main className="w-screen min-h-screen flex sm:flex-col-reverse sm:overflow-auto overflow-hidden">
+      <main className="w-screen min-h-screen flex overflow-hidden ">
+        {!isLandscape && (
+          <div className="absolute flex flex-col gap-4 z-30 bg-white justify-center items-center text-center top-0 w-full h-full">
+            <FcRotateToLandscape className="text-6xl" />
+            To start the experience, please rotate your device to landscape mode
+          </div>
+        )}
         <div
           className={`${
-            isLoaded ? "w-1/3 sm:w-full" : "w-0"
-          } bg-slate-50 h-screen overflow-y-auto sm:overflow-visible no-scrollbar`}
+            isLoaded ? "w-1/3" : "hidden"
+          } bg-slate-50 h-screen overflow-y-auto no-scrollbar`}
         >
-          <div className="p-4  flex flex-col gap-4 sm:items-center">
+          <div className="p-4  flex flex-col gap-4 ">
             <Image
               src={logo}
               alt="logo"
@@ -35,7 +58,7 @@ export default function Home() {
         <div
           className={`${
             isLoaded ? "w-2/3" : "w-full"
-          } bg-gradient-to-t from-blue-300 to-blue-400 relative h-screen sm:h-3/5 sm:w-full`}
+          } bg-gradient-to-t from-blue-300 to-blue-400 relative h-screen`}
         >
           <Experience />
           <p className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white p-4 rounded-full">
